@@ -23,7 +23,7 @@ def extract_text(doc_text):
         temp1 = ''
         temp2 = ''
         isInsert1 = False  # 判断是否要删除句尾连字符-
-        isInsert2 = False  # 判断
+        isInsert2 = False  # 判断行尾是否是一个完整单词（只能判断一部分）
         text = ''
         line_spans = soup.find_all('span', {'class': 'ocr_line'})
         for line_span in line_spans:

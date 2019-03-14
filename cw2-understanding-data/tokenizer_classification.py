@@ -13,7 +13,6 @@ from nltk.stem.snowball import SnowballStemmer
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.externals import joblib
 from sklearn.cluster import KMeans
 from sklearn.manifold import MDS
 
@@ -44,8 +43,8 @@ titles = ['THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. VI',
           'THE LEARNED AND AUTHENTIC JEWISH HISTORIAN,  AND CELEBRATED WARRIOR. VOL. IV',
           'THE DESCRIPTION OF GREECE',
           'THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. III',
-          'TTHE HISTORY OF ROME. VOL. III',
-          'HE HISTORY OF TACITUS. BOOK I. VOL. IV',
+          'THE HISTORY OF ROME. VOL. III',
+          'THE HISTORY OF TACITUS. BOOK I. VOL. IV',
           'THE FLAVIUS JOSEPHU',
           ]
 
@@ -68,6 +67,10 @@ class BookObject(object):
         self.__raw_texts = raw_texts
 
     @property
+    def title(self):
+        return self.__title
+
+    @property
     def raw_texts(self):
         return self.__raw_texts
 
@@ -81,32 +84,51 @@ class TextClassification(object):
     添加方法：
     添加一本书
     加载原始文本
+    特征工程：计算
     tf-idf方法
     k-means方法
     hierachical方法
     """
     def __init__(self):
         self.__books = []
+        self.__no_of_features = 0
+        self.__total_vocabularies = []
         self.__tf_idf_matrix = None
         self.__dist_matrix = None
 
     def add_a_book(self, book):
         self.__books.append(book)
 
-    def load_raw_text(self):
-        rootdir = '/Users/suhang/Documents/GitHub/COMP6237-Data-Mining/cw2-understanding-data/raw_text'
-        files = os.listdir(rootdir)
-        for file in files:
-            print(file)
-            if file != '.DS_Store':
-                file_path = os.path.join(rootdir, file)
-                if os.path.isfile(file_path):
-                    with open(file_path) as f:
-                        raw_texts = f.read()
+    # 特征工程
+    # 打印单词数量
+    def print_word_count(self):
+        words_count = {}
+        for book in self.__books:
+            text_arr = book.raw_texts.strip().split()
+            count = 0
+            for w in text_arr:
+                if len(w) > 0:
+                    count += 1
 
-                        book = BookObject(f, {}, raw_texts=raw_texts)
-                        self.add_a_book(book)
+            words_count[book.title] = count
 
+        print('The word counts of each book is:\n')
+        for key, value in words_count.items():
+            print(key, ':', value)
+
+    # 打印tokenize之后的单词数量
+    def print_word_count_after_tokenization(self):
+        words_count = {}
+        for book in self.__books:
+            text = book.raw_texts.strip()
+            res = tokenize_and_filter_punc(text)
+            words_count[book.title] = len(res)
+
+        print('The word counts of each book after tokrnize is:\n')
+        for key, value in words_count.items():
+            print(key, ':', value)
+
+    # TF-IDF计算词频
     def tf_idf(self):
         tfidf_matrix = None
         tfidf_vectorizer = TfidfVectorizer(max_df=0.9, max_features=200000, min_df=0.01, stop_words='english',
@@ -123,6 +145,7 @@ class TextClassification(object):
         self.__dist_matrix = 1 - cosine_similarity(self.__tf_idf_matrix)
         print(self.__dist_matrix)
 
+    # K-means算法
     def k_mean_clustering(self, n_clusters=5):
         num_clusters = n_clusters
 
@@ -130,7 +153,6 @@ class TextClassification(object):
         km.fit(self.__tf_idf_matrix)
         clusters = km.labels_.tolist()
         print(clusters)
-
 
         synopses = []
         for book in self.__books:
@@ -170,10 +192,9 @@ class TextClassification(object):
         #group by cluster
         groups = df.groupby('label')
 
-
         # set up plot
         fig, ax = plt.subplots(figsize=(17, 9)) # set size
-        ax.margins(0.05) # Optional, just adds 5% padding to the autoscaling
+        ax.margins(0.05)  # Optional, just adds 5% padding to the autoscaling
 
         #iterate through groups to layer the plot
         #note that I use the cluster_name and cluster_color dicts with the 'name' lookup to return the appropriate color/label
@@ -203,6 +224,7 @@ class TextClassification(object):
 
         plt.show() #show the plot
 
+    # 层级聚类
     def hierachical_clustering(self):
         linkage_matrix = ward(self.__dist_matrix) #define the linkage_matrix using ward clustering pre-computed distances
 
@@ -219,11 +241,27 @@ class TextClassification(object):
         fig.set_tight_layout(True) #show plot with tight layout
         plt.show()
 
+    # 加载原始文本并运行
+    def load_raw_text(self):
+        rootdir = '/Users/suhang/Documents/GitHub/COMP6237-Data-Mining/cw2-understanding-data/raw_text'
+        files = os.listdir(rootdir)
+        for file in files:
+            # print(file)
+            if file != '.DS_Store':
+                file_path = os.path.join(rootdir, file)
+                if os.path.isfile(file_path):
+                    with open(file_path) as f:
+                        raw_texts = f.read()
+
+                        book = BookObject(file, {}, raw_texts=raw_texts)
+                        self.add_a_book(book)
 
 
 if __name__ == '__main__':
     test = TextClassification()
     test.load_raw_text()
+    test.print_word_count()
+    test.print_word_count_after_tokenization()
     test.tf_idf()
     test.k_mean_clustering()
     test.hierachical_clustering()
