@@ -1,0 +1,1213 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Classification\_functions\_results}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{data-mining}{%
+\section{Data Mining}\label{data-mining}}
+
+    ------文本分类：寻找24本书的相关性并将相似的聚类
+
+    \hypertarget{ux7f16ux5199ux8fd0ux7b97ux6240ux9700ux7c7bux548cux51fdux6570}{%
+\subsection{1.
+编写运算所需类和函数}\label{ux7f16ux5199ux8fd0ux7b97ux6240ux9700ux7c7bux548cux51fdux6570}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          \PY{k+kn}{import} \PY{n+nn}{os}
+          \PY{k+kn}{import} \PY{n+nn}{re}
+          
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{from} \PY{n+nn}{wordcloud} \PY{k}{import} \PY{n}{WordCloud}
+          
+          \PY{k+kn}{import} \PY{n+nn}{nltk}
+          \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{corpus} \PY{k}{import} \PY{n}{words}
+          \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{corpus} \PY{k}{import} \PY{n}{stopwords}
+          \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{tokenize} \PY{k}{import} \PY{n}{sent\PYZus{}tokenize}
+          \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{tokenize} \PY{k}{import} \PY{n}{word\PYZus{}tokenize}
+          \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{probability} \PY{k}{import} \PY{n}{FreqDist}
+          \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{stem}\PY{n+nn}{.}\PY{n+nn}{snowball} \PY{k}{import} \PY{n}{SnowballStemmer}
+          
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{TfidfVectorizer}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics}\PY{n+nn}{.}\PY{n+nn}{pairwise} \PY{k}{import} \PY{n}{cosine\PYZus{}similarity}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{manifold} \PY{k}{import} \PY{n}{MDS}
+          
+          \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{cluster}\PY{n+nn}{.}\PY{n+nn}{hierarchy} \PY{k}{import} \PY{n}{ward}\PY{p}{,} \PY{n}{dendrogram}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} filter stopwords}
+         \PY{n}{stopwords} \PY{o}{=} \PY{n}{stopwords}\PY{o}{.}\PY{n}{words}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{english}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{en\PYZus{}words} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{words}\PY{o}{.}\PY{n}{words}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{stemmer} \PY{o}{=} \PY{n}{SnowballStemmer}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{english}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} 按照文件读取顺序排列的书籍名称}
+         \PY{n}{titles} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. VI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE HISTORIES CAIUS COBNELIUS TACITUS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE WORK OF JOSEPH US, THE JEWISH WAR. VOL. IV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL, I}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE HISTORY OF TACITUS. BOOK I. VOL. V}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE FIRST AND THIRTY\PYZhy{}THIRD BOOKS OF PLINY}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{S NATURAL HISTORY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE HISTORY OF THE ROMAN EMPIRE. VOL. V}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. II}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE HISTORY OF THE PELOPONNESIAN WAR. VOL. II}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TITUS LIVIUS}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{ ROMAN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE HISTORY OF ROME,  BY TITUS LIVIUS. VOL. I}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. IV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DICTIONARY GREEK AND ROMAN GEOGRAPHY. VOL. II}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE LEARNED AND AUTHENTIC JEWISH HISTORIAN AND CELEBRATED WARRIOR. VOL. III}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LIVY. VOL. III}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LIVY. VOL. V}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE HISTORICAL ANNALS OF CORNELIUS TACITUS. VOL. I}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE HISTORY OF THE PELOPONNESIAN WAR. VOL. I}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE LEARNED AND AUTHENTIC JEWISH HISTORIAN,  AND CELEBRATED WARRIOR. VOL. IV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE DESCRIPTION OF GREECE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. III}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TTHE HISTORY OF ROME. VOL. III}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HE HISTORY OF TACITUS. BOOK I. VOL. IV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THE FLAVIUS JOSEPHU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k}{def} \PY{n+nf}{tokenize\PYZus{}and\PYZus{}filter\PYZus{}punc}\PY{p}{(}\PY{n}{raw\PYZus{}text}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tokens} \PY{o}{=} \PY{n}{nltk}\PY{o}{.}\PY{n}{wordpunct\PYZus{}tokenize}\PY{p}{(}\PY{n}{raw\PYZus{}text}\PY{p}{)}
+             \PY{n}{text} \PY{o}{=} \PY{n}{nltk}\PY{o}{.}\PY{n}{Text}\PY{p}{(}\PY{n}{tokens}\PY{p}{)}
+             \PY{n}{words} \PY{o}{=} \PY{p}{[}\PY{n}{w}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{text} \PY{k}{if} \PY{n}{w}\PY{o}{.}\PY{n}{isalpha}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+         
+             \PY{k}{return} \PY{n}{words}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{class} \PY{n+nc}{BookObject}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    每一本书籍建立一个类的对象}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{title}\PY{p}{,} \PY{n}{contents}\PY{p}{,} \PY{n}{raw\PYZus{}texts}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}title} \PY{o}{=} \PY{n}{title}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}contents} \PY{o}{=} \PY{n}{contents}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}raw\PYZus{}texts} \PY{o}{=} \PY{n}{raw\PYZus{}texts}
+         
+             \PY{n+nd}{@property}
+             \PY{k}{def} \PY{n+nf}{title}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}title}
+         
+             \PY{n+nd}{@property}
+             \PY{k}{def} \PY{n+nf}{raw\PYZus{}texts}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}raw\PYZus{}texts}
+         
+             \PY{n+nd}{@property}
+             \PY{k}{def} \PY{n+nf}{contents}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}contents}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}134}]:} \PY{k}{class} \PY{n+nc}{TextClassification}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    添加方法：}
+          \PY{l+s+sd}{    添加一本书}
+          \PY{l+s+sd}{    加载原始文本}
+          \PY{l+s+sd}{    特征工程：计算文本单词数量，统计高频名词}
+          \PY{l+s+sd}{    tf\PYZhy{}idf方法}
+          \PY{l+s+sd}{    k\PYZhy{}means方法}
+          \PY{l+s+sd}{    hierachical方法}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}books} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}no\PYZus{}of\PYZus{}features} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}total\PYZus{}vocabularies} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}tf\PYZus{}idf\PYZus{}matrix} \PY{o}{=} \PY{k+kc}{None}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}dist\PYZus{}matrix} \PY{o}{=} \PY{k+kc}{None}
+          
+              \PY{k}{def} \PY{n+nf}{add\PYZus{}a\PYZus{}book}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{book}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}books}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{book}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{} 特征工程}
+              \PY{c+c1}{\PYZsh{} 打印单词数量}
+              \PY{k}{def} \PY{n+nf}{print\PYZus{}word\PYZus{}count}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{words\PYZus{}count} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+                  \PY{k}{for} \PY{n}{book} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}books}\PY{p}{:}
+                      \PY{n}{text\PYZus{}arr} \PY{o}{=} \PY{n}{book}\PY{o}{.}\PY{n}{raw\PYZus{}texts}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}
+                      \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+                      \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{text\PYZus{}arr}\PY{p}{:}
+                          \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{w}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                              \PY{n}{count} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+          
+                      \PY{n}{words\PYZus{}count}\PY{p}{[}\PY{n}{book}\PY{o}{.}\PY{n}{title}\PY{p}{]} \PY{o}{=} \PY{n}{count}
+          
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The word counts of each book is:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{k}{for} \PY{n}{key}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n}{words\PYZus{}count}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{n}{key}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{value}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{} 打印tokenize之后的单词数量}
+              \PY{k}{def} \PY{n+nf}{print\PYZus{}word\PYZus{}count\PYZus{}after\PYZus{}tokenization}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{words\PYZus{}count} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+                  \PY{k}{for} \PY{n}{book} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}books}\PY{p}{:}
+                      \PY{n}{text} \PY{o}{=} \PY{n}{book}\PY{o}{.}\PY{n}{raw\PYZus{}texts}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}
+                      \PY{n}{res} \PY{o}{=} \PY{n}{tokenize\PYZus{}and\PYZus{}filter\PYZus{}punc}\PY{p}{(}\PY{n}{text}\PY{p}{)}
+                      \PY{n}{words\PYZus{}count}\PY{p}{[}\PY{n}{book}\PY{o}{.}\PY{n}{title}\PY{p}{]} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{res}\PY{p}{)}
+          
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The word counts of each book after tokrnize is:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{k}{for} \PY{n}{key}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n}{words\PYZus{}count}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{n}{key}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{value}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} 输出每本书使用频率前20名的单词}
+              \PY{k}{def} \PY{n+nf}{highfreq\PYZus{}noun}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{High frequency noun in each book:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{k}{for} \PY{n}{book} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}books}\PY{p}{:}
+                      \PY{n}{text} \PY{o}{=} \PY{n}{book}\PY{o}{.}\PY{n}{raw\PYZus{}texts}
+                      \PY{n}{tokens} \PY{o}{=} \PY{n}{tokenize\PYZus{}and\PYZus{}filter\PYZus{}punc}\PY{p}{(}\PY{n}{text}\PY{p}{)}
+                      \PY{n}{freq\PYZus{}dist} \PY{o}{=} \PY{n}{FreqDist}\PY{p}{(}\PY{n}{tokens}\PY{p}{)}
+                      \PY{n}{tagged} \PY{o}{=} \PY{n}{nltk}\PY{o}{.}\PY{n}{pos\PYZus{}tag}\PY{p}{(}\PY{n}{tokens}\PY{p}{)}
+                      \PY{n}{minfo} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{freq\PYZus{}dist}\PY{p}{)}
+                      \PY{n}{info} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{p}{[}\PY{n}{k}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{k}\PY{p}{,}\PY{n}{v} \PY{o+ow}{in} \PY{n}{tagged} \PY{k}{if} \PY{n}{v} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                      \PY{n}{kinfo} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{minfo}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{info}\PY{p}{]}
+                      \PY{n}{kinfo}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{k}\PY{p}{:}\PY{n}{k}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                      \PY{n}{kinfo} \PY{o}{=} \PY{p}{[}\PY{n}{w} \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{kinfo} \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{w}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{3}\PY{p}{]}
+                      \PY{n}{output1} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n}{m}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n}{kinfo}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{20}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{《}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{book}\PY{o}{.}\PY{n}{title}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{》:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{output1}\PY{p}{)}
+                      \PY{n}{output2} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n}{m}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n}{kinfo}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{20}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+                      \PY{n}{this\PYZus{}wordcloud} \PY{o}{=} \PY{n}{WordCloud}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{generate}\PY{p}{(}\PY{n}{output2}\PY{p}{)}
+                      \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{this\PYZus{}wordcloud}\PY{p}{)}
+                      \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                      \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+                      
+                      
+          
+              \PY{c+c1}{\PYZsh{} TF\PYZhy{}IDF计算词频}
+              \PY{k}{def} \PY{n+nf}{tf\PYZus{}idf}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{tfidf\PYZus{}matrix} \PY{o}{=} \PY{k+kc}{None}
+                  \PY{n}{tfidf\PYZus{}vectorizer} \PY{o}{=} \PY{n}{TfidfVectorizer}\PY{p}{(}\PY{n}{max\PYZus{}df}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{,}
+                                                     \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+m+mi}{200000}\PY{p}{,} 
+                                                     \PY{n}{min\PYZus{}df}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} 
+                                                     \PY{n}{stop\PYZus{}words}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{english}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                                     \PY{n}{use\PYZus{}idf}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}  
+                                                     \PY{n}{tokenizer}\PY{o}{=}\PY{n}{tokenize\PYZus{}and\PYZus{}filter\PYZus{}punc}\PY{p}{,} 
+                                                     \PY{n}{ngram\PYZus{}range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{books} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                  \PY{k}{for} \PY{n}{book} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}books}\PY{p}{:}
+                      \PY{n}{books}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{book}\PY{o}{.}\PY{n}{raw\PYZus{}texts}\PY{p}{)}
+          
+                  \PY{n}{tfidf\PYZus{}matrix} \PY{o}{=} \PY{n}{tfidf\PYZus{}vectorizer}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{books}\PY{p}{)}
+          
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}tf\PYZus{}idf\PYZus{}matrix} \PY{o}{=} \PY{n}{tfidf\PYZus{}matrix}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}tf\PYZus{}idf\PYZus{}matrix}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+          
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}dist\PYZus{}matrix} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{cosine\PYZus{}similarity}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}tf\PYZus{}idf\PYZus{}matrix}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{} K\PYZhy{}means算法}
+              \PY{k}{def} \PY{n+nf}{k\PYZus{}mean\PYZus{}clustering}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{num\PYZus{}clusters} \PY{o}{=} \PY{n}{n\PYZus{}clusters}
+          
+                  \PY{n}{km} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{n}{num\PYZus{}clusters}\PY{p}{)}
+                  \PY{n}{km}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}tf\PYZus{}idf\PYZus{}matrix}\PY{p}{)}
+                  \PY{n}{clusters} \PY{o}{=} \PY{n}{km}\PY{o}{.}\PY{n}{labels\PYZus{}}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}         print(clusters)}
+          
+                  \PY{n}{synopses} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                  \PY{k}{for} \PY{n}{book} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}books}\PY{p}{:}
+                      \PY{n}{synopses}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{book}\PY{o}{.}\PY{n}{raw\PYZus{}texts}\PY{p}{)}
+          
+                  \PY{n}{books} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{titles}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{synopsis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{synopses}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{clusters}\PY{p}{\PYZcb{}}
+          
+                  \PY{n}{frame} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{books}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{n}{clusters}\PY{p}{]} \PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{n}{frame}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{}grouped = frame[\PYZsq{}title\PYZsq{}].groupby(frame[\PYZsq{}cluster\PYZsq{}]) \PYZsh{}groupby cluster for aggregation purposes}
+          
+                  \PY{c+c1}{\PYZsh{}print grouped.mean() \PYZsh{}average rank (1 to 100) per cluster}
+          
+                  \PY{c+c1}{\PYZsh{} convert two components as we\PYZsq{}re plotting points in a two\PYZhy{}dimensional plane}
+                  \PY{c+c1}{\PYZsh{} \PYZdq{}precomputed\PYZdq{} because we provide a distance matrix}
+                  \PY{c+c1}{\PYZsh{} we will also specify `random\PYZus{}state` so the plot is reproducible.}
+                  \PY{n}{mds} \PY{o}{=} \PY{n}{MDS}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{dissimilarity}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{precomputed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          
+                  \PY{n}{pos} \PY{o}{=} \PY{n}{mds}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}dist\PYZus{}matrix}\PY{p}{)}  \PY{c+c1}{\PYZsh{} shape (n\PYZus{}components, n\PYZus{}samples)}
+                  \PY{n}{xs}\PY{p}{,} \PY{n}{ys} \PY{o}{=} \PY{n}{pos}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{pos}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{}         print(xs)}
+          \PY{c+c1}{\PYZsh{}         print(ys)}
+          
+                  \PY{c+c1}{\PYZsh{}set up colors per clusters using a dict}
+                  \PY{n}{cluster\PYZus{}colors} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}1b9e77}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}d95f02}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}7570b3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}e7298a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}66a61e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+          
+                  \PY{c+c1}{\PYZsh{}set up cluster names using a dict}
+                  \PY{n}{cluster\PYZus{}names} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Group 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                   \PY{l+m+mi}{1}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Group 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                   \PY{l+m+mi}{2}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Group 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                   \PY{l+m+mi}{3}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Group 4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                   \PY{l+m+mi}{4}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Group 5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+          
+                  \PY{c+c1}{\PYZsh{}create data frame that has the result of the MDS plus the cluster numbers and titles}
+                  \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{xs}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{ys}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{clusters}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{n}{titles}\PY{p}{)}\PY{p}{)}
+          
+                  \PY{c+c1}{\PYZsh{}group by cluster}
+                  \PY{n}{groups} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+                  \PY{c+c1}{\PYZsh{} set up plot}
+                  \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} set size}
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{margins}\PY{p}{(}\PY{l+m+mf}{0.05}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Optional, just adds 5\PYZpc{} padding to the autoscaling}
+          
+                  \PY{c+c1}{\PYZsh{}iterate through groups to layer the plot}
+                  \PY{c+c1}{\PYZsh{}note that I use the cluster\PYZus{}name and cluster\PYZus{}color dicts with the \PYZsq{}name\PYZsq{} lookup to return the appropriate color/label}
+                  \PY{k}{for} \PY{n}{name}\PY{p}{,} \PY{n}{group} \PY{o+ow}{in} \PY{n}{groups}\PY{p}{:}
+                      \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{group}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{group}\PY{o}{.}\PY{n}{y}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,}
+                              \PY{n}{label}\PY{o}{=}\PY{n}{cluster\PYZus{}names}\PY{p}{[}\PY{n}{name}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{cluster\PYZus{}colors}\PY{p}{[}\PY{n}{name}\PY{p}{]}\PY{p}{,}
+                              \PY{n}{mec}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                      \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}aspect}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                      \PY{n}{ax}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PYZbs{}
+                          \PY{n}{axis}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}          \PY{c+c1}{\PYZsh{} changes apply to the x\PYZhy{}axis}
+                          \PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}      \PY{c+c1}{\PYZsh{} both major and minor ticks are affected}
+                          \PY{n}{bottom}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}      \PY{c+c1}{\PYZsh{} ticks along the bottom edge are off}
+                          \PY{n}{top}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}         \PY{c+c1}{\PYZsh{} ticks along the top edge are off}
+                          \PY{n}{labelbottom}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                      \PY{n}{ax}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PYZbs{}
+                          \PY{n}{axis}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}         \PY{c+c1}{\PYZsh{} changes apply to the y\PYZhy{}axis}
+                          \PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}      \PY{c+c1}{\PYZsh{} both major and minor ticks are affected}
+                          \PY{n}{left}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}      \PY{c+c1}{\PYZsh{} ticks along the bottom edge are off}
+                          \PY{n}{top}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}         \PY{c+c1}{\PYZsh{} ticks along the top edge are off}
+                          \PY{n}{labelleft}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+                  \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{numpoints}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}  \PY{c+c1}{\PYZsh{}show legend with only 1 point}
+          
+                  \PY{c+c1}{\PYZsh{}add label in x,y position with the label as the film title}
+                  \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{ax}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{ix}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{df}\PY{o}{.}\PY{n}{ix}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{df}\PY{o}{.}\PY{n}{ix}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{)}
+          
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}show the plot}
+          
+              \PY{c+c1}{\PYZsh{} 层级聚类}
+              \PY{k}{def} \PY{n+nf}{hierachical\PYZus{}clustering}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{linkage\PYZus{}matrix} \PY{o}{=} \PY{n}{ward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}dist\PYZus{}matrix}\PY{p}{)} \PY{c+c1}{\PYZsh{}define the linkage\PYZus{}matrix using ward clustering pre\PYZhy{}computed distances}
+          
+                  \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} set size}
+                  \PY{n}{ax} \PY{o}{=} \PY{n}{dendrogram}\PY{p}{(}\PY{n}{linkage\PYZus{}matrix}\PY{p}{,} \PY{n}{orientation}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{titles}\PY{p}{)}\PY{p}{;}
+          
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PYZbs{}
+                      \PY{n}{axis}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}          \PY{c+c1}{\PYZsh{} changes apply to the x\PYZhy{}axis}
+                      \PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}      \PY{c+c1}{\PYZsh{} both major and minor ticks are affected}
+                      \PY{n}{bottom}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}      \PY{c+c1}{\PYZsh{} ticks along the bottom edge are off}
+                      \PY{n}{top}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}         \PY{c+c1}{\PYZsh{} ticks along the top edge are off}
+                      \PY{n}{labelbottom}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+                  \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}tight\PYZus{}layout}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)} \PY{c+c1}{\PYZsh{}show plot with tight layout}
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{} 加载原始文本并运行}
+              \PY{k}{def} \PY{n+nf}{load\PYZus{}raw\PYZus{}text}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{rootdir} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/Users/suhang/Documents/GitHub/COMP6237\PYZhy{}Data\PYZhy{}Mining/cw2\PYZhy{}understanding\PYZhy{}data/raw\PYZus{}text}\PY{l+s+s1}{\PYZsq{}}
+                  \PY{n}{files} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{rootdir}\PY{p}{)}
+                  \PY{k}{for} \PY{n}{file} \PY{o+ow}{in} \PY{n}{files}\PY{p}{:}
+                      \PY{k}{if} \PY{n}{file} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.DS\PYZus{}Store}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                          \PY{n}{file\PYZus{}path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{rootdir}\PY{p}{,} \PY{n}{file}\PY{p}{)}
+                          \PY{k}{if} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{isfile}\PY{p}{(}\PY{n}{file\PYZus{}path}\PY{p}{)}\PY{p}{:}
+                              \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{file\PYZus{}path}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+                                  \PY{n}{raw\PYZus{}texts} \PY{o}{=} \PY{n}{f}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+          
+                                  \PY{n}{book} \PY{o}{=} \PY{n}{BookObject}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{raw\PYZus{}texts}\PY{o}{=}\PY{n}{raw\PYZus{}texts}\PY{p}{)}
+                                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{add\PYZus{}a\PYZus{}book}\PY{p}{(}\PY{n}{book}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{ux521bux5efaux5bf9ux8c61ux5e76ux8c03ux7528ux51fdux6570ux8f93ux51faux7ed3ux679c}{%
+\subsection{2.
+创建对象并调用函数，输出结果}\label{ux521bux5efaux5bf9ux8c61ux5e76ux8c03ux7528ux51fdux6570ux8f93ux51faux7ed3ux679c}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}135}]:} \PY{n}{test} \PY{o}{=} \PY{n}{TextClassification}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}136}]:} \PY{n}{test}\PY{o}{.}\PY{n}{load\PYZus{}raw\PYZus{}text}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{ux521dux6b65ux63a2ux7d22}{%
+\subsubsection{2.1 初步探索}\label{ux521dux6b65ux63a2ux7d22}}
+
+    \hypertarget{ux7edfux8ba1ux6bcfux672cux4e66ux4f7fux7528ux7387ux524d20ux540dux7684ux540dux8bcd}{%
+\paragraph{2.1.1
+统计每本书使用率前20名的名词}\label{ux7edfux8ba1ux6bcfux672cux4e66ux4f7fux7528ux7387ux524d20ux540dux7684ux540dux8bcd}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}137}]:} \PY{n}{test}\PY{o}{.}\PY{n}{highfreq\PYZus{}noun}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+High frequency noun in each book:
+
+《 THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. VI 》:
+ torn,roman,empire,hundred,thousand,mahomet,chap,name,emperor,hist,city,greeks,life,arabs,religion,death,church,caliph,reign,rome
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE HISTORIES CAIUS COBNELIUS TACITUS 》:
+ note,quam,quod,vitellius,tacitus,subj,galba,inter,neque,otho,quae,apud,essay,word,hist,sense,militum,exercitus,ejus,suet
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE WORK OF JOSEPH US, THE JEWISH WAR. VOL. IV 》:
+ upon,jews,city,very,josephus,while,temple,before,time,king,place,wall,titus,come,jerusalem,vespasian,country,together,away,army
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL, I 》:
+ roman,empire,emperor,rome,hist,senate,death,decline,fall,public,well,power,time,life,general,august,ancient,army,reign,part
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE HISTORY OF TACITUS. BOOK I. VOL. V 》:
+ book,otho,vitellius,history,time,tacitus,galba,army,section,rome,nero,legion,emperor,public,city,whole,vespasian,enemy,camp,prince
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE FIRST AND THIRTY-THIRD BOOKS OF PLINY'S NATURAL HISTORY 》:
+ gold,silver,kind,time,very,copper,account,weight,order,lead,while,substance,word,note,name,book,part,minium,term,water
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE HISTORY OF THE ROMAN EMPIRE. VOL. V 》:
+ roman,chap,empire,justinian,thousand,emperor,hundred,first,fall,decline,belisarius,rome,italy,king,name,death,city,reign,general,public
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_13.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. II 》:
+ julian,roman,empire,chap,emperor,decline,fall,public,death,constantine,constantius,troops,theodosius,army,city,general,east,military,reign,imperial
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_15.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE HISTORY OF THE PELOPONNESIAN WAR. VOL. II 》:
+ upon,time,whole,enemy,though,present,fleet,farther,therefore,city,before,hundred,state,sicily,make,force,land,athenian,army,sent
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_17.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 TITUS LIVIUS' ROMAN 》:
+ have,roman,chap,city,time,upon,rome,enemy,senate,consuls,army,before,titus,history,consul,book,camp,country,livius,volsci
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_19.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE HISTORY OF ROME,  BY TITUS LIVIUS. VOL, I 》:
+ have,city,time,fuch,enemy,rome,fhould,againft,fenate,thefe,confuls,thofe,fame,roman,firft,conful,mould,book,camp,year
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_21.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. IV 》:
+ roman,chap,empire,emperor,fall,justinian,decline,first,thousand,belisarius,rome,italy,reign,constantinople,city,death,king,name,palace,general
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_23.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 DICTIONARY GREEK AND ROMAN GEOGRAPHY. VOL. II 》:
+ name,town,city,ancient,place,river,time,part,strab,about,roman,coast,temple,ptol,though,first,pliny,country,plin,site
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_25.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE LEARNED AND AUTHENTIC JEWISH HISTORIAN AND CELEBRATED WARRIOR. VOL. III 》:
+ upon,jews,have,king,herod,about,sent,city,very,before,time,while,come,chap,caesar,agrippa,country,thou,account,together
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_27.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 LIVY. VOL. III 》:
+ have,enemy,rome,consul,time,roman,army,made,consuls,camp,book,senate,while,history,troops,city,either,battle,thousand,sent
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_29.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 LIVY. VOL. V 》:
+ time,rome,enemy,city,roman,scipio,king,sent,senate,army,consul,while,book,thousand,history,troops,camp,general,hannibal,livy
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_31.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE HISTORICAL ANNALS OF CORNELIUS TACITUS. VOL. I 》:
+ tiberius,time,germanicus,senate,rome,augustus,roman,prince,public,army,tacitus,piso,emperor,drusus,general,country,nothing,before,name,father
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_33.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE HISTORY OF THE PELOPONNESIAN WAR. VOL. I 》:
+ upon,such,time,city,hath,very,year,though,over,whole,athenian,public,present,greece,peloponnesian,power,place,part,thucydides,state
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_35.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE LEARNED AND AUTHENTIC JEWISH HISTORIAN,  AND CELEBRATED WARRIOR. VOL. IV 》:
+ king,jews,upon,herod,about,very,city,sent,temple,chap,time,country,army,come,jerusalem,while,book,away,hyrcanus,account
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_37.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE DESCRIPTION OF GREECE 》:
+ city,statue,page,place,temple,apollo,homer,river,jupiter,time,account,daughter,part,olympic,therefore,fame,hence,greece,picture,statuary
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_39.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. III 》:
+ torn,roman,first,hundred,thousand,empire,emperor,justinian,name,city,rome,death,hist,constantinople,mahomet,reign,life,fall,general,italy
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_41.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE HISTORY OF ROME. VOL. III 》:
+ roman,even,sulla,rome,senate,time,state,such,army,king,government,italy,very,gracchus,book,general,chap,before,italian,gaius
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_43.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE HISTORY OF TACITUS. BOOK I. VOL. IV 》:
+ nero,book,life,time,rome,emperor,death,daughter,tacitus,wife,public,roman,table,augustus,prince,claudius,section,suet,galba,city
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_45.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+《 THE FLAVIUS JOSEPHU 》:
+ king,upon,jews,about,very,city,time,before,sent,over,come,because,josephus,temple,army,david,country,place,thou,while
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_47.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux8f93ux51faux5207ux5206ux8bcdux524dux6bcfux672cux4e66ux7684ux5355ux8bcdux6570ux91cfux7edfux8ba1ux7ed3ux679c}{%
+\paragraph{2.1.2
+输出切分词前每本书的单词数量统计结果}\label{ux8f93ux51faux5207ux5206ux8bcdux524dux6bcfux672cux4e66ux7684ux5355ux8bcdux6570ux91cfux7edfux8ba1ux7ed3ux679c}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{test}\PY{o}{.}\PY{n}{print\PYZus{}word\PYZus{}count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The word counts of each book is:
+
+THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. VI.txt : 213422
+THE HISTORIES CAIUS COBNELIUS TACITUS.txt : 169627
+THE WORK OF JOSEPH US, THE JEWISH WAR. VOL. IV.txt : 233950
+THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL, I.txt : 272089
+THE HISTORY OF TACITUS. BOOK I. VOL. V.txt : 74210
+THE FIRST AND THIRTY-THIRD BOOKS OF PLINY'S NATURAL HISTORY.txt : 30706
+THE HISTORY OF THE ROMAN EMPIRE. VOL. V.txt : 205502
+THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. II.txt : 166971
+THE HISTORY OF THE PELOPONNESIAN WAR. VOL. II.txt : 136976
+TITUS LIVIUS' ROMAN.txt : 175865
+THE HISTORY OF ROME,  BY TITUS LIVIUS. VOL, I.txt : 192044
+THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. IV.txt : 175260
+DICTIONARY GREEK AND ROMAN GEOGRAPHY. VOL. II.txt : 1659053
+THE LEARNED AND AUTHENTIC JEWISH HISTORIAN AND CELEBRATED WARRIOR. VOL. III.txt : 230261
+LIVY. VOL. III.txt : 115565
+LIVY. VOL. V.txt : 148879
+THE HISTORICAL ANNALS OF CORNELIUS TACITUS. VOL. I.txt : 74463
+THE HISTORY OF THE PELOPONNESIAN WAR. VOL. I.txt : 188864
+THE LEARNED AND AUTHENTIC JEWISH HISTORIAN,  AND CELEBRATED WARRIOR. VOL. IV.txt : 220162
+THE DESCRIPTION OF GREECE.txt : 144341
+THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. III.txt : 398707
+THE HISTORY OF ROME. VOL. III.txt : 204463
+THE HISTORY OF TACITUS. BOOK I. VOL. IV.txt : 78380
+THE FLAVIUS JOSEPHU.txt : 503619
+
+    \end{Verbatim}
+
+    \hypertarget{ux8f93ux51faux5207ux5206ux8bcdux540eux6bcfux672cux4e66ux7684ux5355ux8bcdux6570ux91cfux7edfux8ba1ux7ed3ux679c}{%
+\paragraph{2.1.3
+输出切分词后每本书的单词数量统计结果}\label{ux8f93ux51faux5207ux5206ux8bcdux540eux6bcfux672cux4e66ux7684ux5355ux8bcdux6570ux91cfux7edfux8ba1ux7ed3ux679c}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{test}\PY{o}{.}\PY{n}{print\PYZus{}word\PYZus{}count\PYZus{}after\PYZus{}tokenization}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The word counts of each book after tokrnize is:
+
+THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. VI.txt : 209590
+THE HISTORIES CAIUS COBNELIUS TACITUS.txt : 156262
+THE WORK OF JOSEPH US, THE JEWISH WAR. VOL. IV.txt : 228474
+THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL, I.txt : 264682
+THE HISTORY OF TACITUS. BOOK I. VOL. V.txt : 72599
+THE FIRST AND THIRTY-THIRD BOOKS OF PLINY'S NATURAL HISTORY.txt : 29786
+THE HISTORY OF THE ROMAN EMPIRE. VOL. V.txt : 200783
+THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. II.txt : 164368
+THE HISTORY OF THE PELOPONNESIAN WAR. VOL. II.txt : 134429
+TITUS LIVIUS' ROMAN.txt : 174997
+THE HISTORY OF ROME,  BY TITUS LIVIUS. VOL, I.txt : 191334
+THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. IV.txt : 172728
+DICTIONARY GREEK AND ROMAN GEOGRAPHY. VOL. II.txt : 1603581
+THE LEARNED AND AUTHENTIC JEWISH HISTORIAN AND CELEBRATED WARRIOR. VOL. III.txt : 225245
+LIVY. VOL. III.txt : 114300
+LIVY. VOL. V.txt : 148669
+THE HISTORICAL ANNALS OF CORNELIUS TACITUS. VOL. I.txt : 73046
+THE HISTORY OF THE PELOPONNESIAN WAR. VOL. I.txt : 183434
+THE LEARNED AND AUTHENTIC JEWISH HISTORIAN,  AND CELEBRATED WARRIOR. VOL. IV.txt : 219372
+THE DESCRIPTION OF GREECE.txt : 137879
+THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. III.txt : 392485
+THE HISTORY OF ROME. VOL. III.txt : 203292
+THE HISTORY OF TACITUS. BOOK I. VOL. IV.txt : 75982
+THE FLAVIUS JOSEPHU.txt : 501711
+
+    \end{Verbatim}
+
+    \hypertarget{ux6587ux672cux5411ux91cfux5316}{%
+\paragraph{2.2 文本向量化}\label{ux6587ux672cux5411ux91cfux5316}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{}TF\PYZhy{}IDF}
+         \PY{n}{test}\PY{o}{.}\PY{n}{tf\PYZus{}idf}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(24, 200000)
+
+    \end{Verbatim}
+
+    \hypertarget{ux4f7fux7528ux4e0dux540cux7b97ux6cd5ux8fdbux884cux6587ux672cux5206ux7c7b}{%
+\subsubsection{3.使用不同算法进行文本分类}\label{ux4f7fux7528ux4e0dux540cux7b97ux6cd5ux8fdbux884cux6587ux672cux5206ux7c7b}}
+
+    \hypertarget{ux4f7fux7528k-meansux7b97ux6cd5ux8fdbux884cux5206ux7c7b}{%
+\paragraph{3.1
+使用K-means算法进行分类}\label{ux4f7fux7528k-meansux7b97ux6cd5ux8fdbux884cux5206ux7c7b}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{c+c1}{\PYZsh{} K\PYZhy{}means 聚类}
+         \PY{n}{test}\PY{o}{.}\PY{n}{k\PYZus{}mean\PYZus{}clustering}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0    8
+2    5
+3    4
+1    4
+4    3
+Name: cluster, dtype: int64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/suhang/anaconda3/lib/python3.7/site-packages/matplotlib/cbook/\_\_init\_\_.py:424: MatplotlibDeprecationWarning: 
+Passing one of 'on', 'true', 'off', 'false' as a boolean is deprecated; use an actual boolean (True/False) instead.
+  warn\_deprecated("2.2", "Passing one of 'on', 'true', 'off', 'false' as a "
+/Users/suhang/anaconda3/lib/python3.7/site-packages/ipykernel\_launcher.py:146: DeprecationWarning: 
+.ix is deprecated. Please use
+.loc for label based indexing or
+.iloc for positional indexing
+
+See the documentation here:
+http://pandas.pydata.org/pandas-docs/stable/indexing.html\#ix-indexer-is-deprecated
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{classification-results}{%
+\subsubsection{Classification results}\label{classification-results}}
+
+\hypertarget{k-means-result}{%
+\paragraph{K-means Result:}\label{k-means-result}}
+
+\begin{longtable}[]{@{}l@{}}
+\toprule
+1. Group 1:\tabularnewline
+\midrule
+\endhead
+- \textbf{THE FIRST AND THIRTY-THIRD BOOKS OF PLINY'S NATURAL
+HISTORY};\tabularnewline
+- DICTIONARY GREEK AND ROMAN GEOGRAPHY. VOL. II;\tabularnewline
+- \textbf{THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL.
+VI};\tabularnewline
+- THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL.
+I;\tabularnewline
+- \textbf{THE HISTORY OF THE ROMAN EMPIRE. VOL. V};\tabularnewline
+- THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL.
+II;\tabularnewline
+- \textbf{THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL.
+IV};\tabularnewline
+- THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL.
+III\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}l@{}}
+\toprule
+\begin{minipage}[b]{0.97\columnwidth}\raggedright
+2. Group 2:\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.97\columnwidth}\raggedright
+- \textbf{THE FLAVIUS JOSEPHU};\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.97\columnwidth}\raggedright
+- THE WORK OF JOSEPH US, THE JEWISH WAR. VOL. IV;\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.97\columnwidth}\raggedright
+- \textbf{THE LEARNED AND AUTHENTIC JEWISH HISTORIAN AND CELEBRATED
+WARRIOR. VOL. III};\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.97\columnwidth}\raggedright
+- THE LEARNED AND AUTHENTIC JEWISH HISTORIAN,AND CELEBRATED WARRIOR.
+VOL. IV;\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}l@{}}
+\toprule
+3. Group 3:\tabularnewline
+\midrule
+\endhead
+- \textbf{THE HISTORY OF ROME,BY TITUS LIVIUS. VOL. I};\tabularnewline
+- LIVY. VOL. III;\tabularnewline
+- \textbf{LIVY. VOL. V};\tabularnewline
+- THE HISTORY OF ROME. VOL. III*; **TITUS LIVIUS' ROMAN;\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}l@{}}
+\toprule
+4. Group 4:\tabularnewline
+\midrule
+\endhead
+- \textbf{THE HISTORY OF TACITUS. BOOK I. VOL. IV};\tabularnewline
+- THE HISTORICAL ANNALS OF CORNELIUS TACITUS. VOL. I;\tabularnewline
+- \textbf{THE HISTORY OF TACITUS. BOOK I. VOL. V};\tabularnewline
+- THE HISTORIES CAIUS COBNELIUS TACITUS\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}l@{}}
+\toprule
+5. Group 5:\tabularnewline
+\midrule
+\endhead
+- THE DESCRIPTION OF GREECE**;\tabularnewline
+- THE HISTORY OF THE PELOPONNESIAN WAR. VOL. II;\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{ux4f7fux7528ux5c42ux7ea7ux805aux7c7bux7b97ux6cd5ux8fdbux884cux5206ux7c7b}{%
+\paragraph{3.2
+使用层级聚类算法进行分类}\label{ux4f7fux7528ux5c42ux7ea7ux805aux7c7bux7b97ux6cd5ux8fdbux884cux5206ux7c7b}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{} 层级聚类}
+         \PY{n}{test}\PY{o}{.}\PY{n}{hierachical\PYZus{}clustering}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/suhang/anaconda3/lib/python3.7/site-packages/matplotlib/figure.py:2366: UserWarning: This figure includes Axes that are not compatible with tight\_layout, so results might be incorrect.
+  warnings.warn("This figure includes Axes that are not compatible "
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{hierachical-clustering-results}{%
+\paragraph{Hierachical Clustering
+Results:}\label{hierachical-clustering-results}}
+
+\begin{longtable}[]{@{}l@{}}
+\toprule
+1. Group 1:\tabularnewline
+\midrule
+\endhead
+- THE HISTORY OF ROME. VOL. III;\tabularnewline
+- DICTIONARY GREEK AND ROMAN GEOGRAPHY. VOL. II;\tabularnewline
+- THE DESCRIPTION OF GREECE;\tabularnewline
+- THE FIRST AND THIRTY-THIRD BOOKS OF PLINY'S NATURAL
+HISTORY;\tabularnewline
+- THE HISTORIES CAIUS COBNELIUS TACITUS;\tabularnewline
+- THE HISTORY OF ROME, BY TITUS LIVIUS. VOL. I;\tabularnewline
+- THE HISTORY OF TACITUS. BOOK I. VOL. IV;\tabularnewline
+- THE HISTORY OF TACTIUS. BOOK I. VOL. V;\tabularnewline
+- THE HISTORICAL ANNALS OF CORNELIUS TACTITUS. VOL. I;\tabularnewline
+- LIVY. VOL. V;\tabularnewline
+- LIVY. VOL. III;\tabularnewline
+- TITUS LIVIUS' ROMAN;\tabularnewline
+- THE HISTORY OF THE PELOPONNESIAN WAR. VOL. I;\tabularnewline
+- THE HISTORY OF THE PELOPONNESIAN WAR. VOL. II;\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}l@{}}
+\toprule
+2. Group 2:\tabularnewline
+\midrule
+\endhead
+- THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL.
+I;\tabularnewline
+- THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL.
+II;\tabularnewline
+- THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL.
+III;\tabularnewline
+- THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL.
+IV;\tabularnewline
+- THE HISTORY OF THE ROMAN EMPIRE. VOL. V;\tabularnewline
+- THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL.
+VI;\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}l@{}}
+\toprule
+\begin{minipage}[b]{0.97\columnwidth}\raggedright
+3. Group 3:\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.97\columnwidth}\raggedright
+- THE FLAVIUS JOSEPHU;\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.97\columnwidth}\raggedright
+- THE WORK OF JOSEPH US, THE JEWISH WAR. VOL. IV;\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.97\columnwidth}\raggedright
+- THE LEARNED AND AUTHENTIC JEWISH HISTORIAN, AND CELEBRATED WARRIOR.
+VOL. III;\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.97\columnwidth}\raggedright
+- THE LEARNED AND AUTHENTIC JEWISH HISTORIAN, AND CELEBRATED WARRIOR.
+VOL. IV;\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{brief-conclusion}{%
+\subsubsection{4. Brief conclusion：}\label{brief-conclusion}}
+
+    层级聚类的分类结果比5个聚类的k-means结果要好。
+
+在层级聚类中： - 第一类都是关于古希腊古罗马历史文化的书籍 -
+第二类全部是罗马帝国兴衰历史的1-6卷 -
+第三类均为关于犹太文化历史信息的书籍
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
