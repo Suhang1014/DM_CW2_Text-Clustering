@@ -605,7 +605,7 @@ test.tf_idf()
     (24, 200000)
 
 
-### 3.使用不同算法进行文本分类
+### 3.根据用词相似度使用不同算法进行文本分类
 
 #### 3.1 使用K-means算法进行分类
 
@@ -655,6 +655,11 @@ test.k_mean_clustering()
     |- THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. II; |
     |- **THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. IV**; |
     |- THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. III|
+第一组为《罗马帝国衰亡史》的书籍。
+但是，
+THE FIRST AND THIRTY-THIRD BOOKS OF PLINY'S NATURAL HISTORY：古罗马学者普林尼所著书籍，译为《博物志》，西方古代百科全书。
+DICTIONARY GREEK AND ROMAN GEOGRAPHY. VOL. II：《希腊罗马古迹辞典》
+这两本书分类不够理想。
     
 |2. Group 2:|
 |---|
@@ -662,6 +667,7 @@ test.k_mean_clustering()
     |- THE WORK OF JOSEPH US, THE JEWISH WAR. VOL. IV; |
     |- **THE LEARNED AND AUTHENTIC JEWISH HISTORIAN AND CELEBRATED WARRIOR. VOL. III**; |
     |- THE LEARNED AND AUTHENTIC JEWISH HISTORIAN,AND CELEBRATED WARRIOR. VOL. IV;|
+第二组结果比较好，均为与犹太历史文化相关书籍。
 
 |3. Group 3:|
 |----|
@@ -669,6 +675,7 @@ test.k_mean_clustering()
     |- LIVY. VOL. III;| 
     |- **LIVY. VOL. V**; |
     |- THE HISTORY OF ROME. VOL. III*; **TITUS LIVIUS' ROMAN;|
+第三组分类依据中比较突出的关键词为**Titus Livius**, 古罗马历史学家。
     
 |4. Group 4:|
 |----|
@@ -676,11 +683,14 @@ test.k_mean_clustering()
     |- THE HISTORICAL ANNALS OF CORNELIUS TACITUS. VOL. I; |
     |- **THE HISTORY OF TACITUS. BOOK I. VOL. V**; |
     |- THE HISTORIES CAIUS COBNELIUS TACITUS|
+分类关键词**TACITUS**,古罗马历史学家。
     
 |5. Group 5:|
 |----|
     |- THE DESCRIPTION OF GREECE**; |
     |- THE HISTORY OF THE PELOPONNESIAN WAR. VOL. II;|
+THE PELOPONNESIAN WAR：伯罗奔尼撒战争，雅典和斯巴达之间的战争。
+因此第五组为与古希腊相关的书籍。
 
 #### 3.2 使用层级聚类算法进行分类
 
@@ -738,5 +748,5 @@ test.hierachical_clustering()
 
 在层级聚类中：
 - 第一类都是关于古希腊古罗马历史文化的书籍
-- 第二类全部是罗马帝国兴衰历史的1-6卷
+- 第二类是《罗马帝国衰亡史》的1-6卷
 - 第三类均为关于犹太文化历史信息的书籍
