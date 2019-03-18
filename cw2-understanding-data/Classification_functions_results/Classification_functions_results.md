@@ -623,18 +623,6 @@ test.k_mean_clustering()
     Name: cluster, dtype: int64
 
 
-    /Users/suhang/anaconda3/lib/python3.7/site-packages/matplotlib/cbook/__init__.py:424: MatplotlibDeprecationWarning: 
-    Passing one of 'on', 'true', 'off', 'false' as a boolean is deprecated; use an actual boolean (True/False) instead.
-      warn_deprecated("2.2", "Passing one of 'on', 'true', 'off', 'false' as a "
-    /Users/suhang/anaconda3/lib/python3.7/site-packages/ipykernel_launcher.py:146: DeprecationWarning: 
-    .ix is deprecated. Please use
-    .loc for label based indexing or
-    .iloc for positional indexing
-    
-    See the documentation here:
-    http://pandas.pydata.org/pandas-docs/stable/indexing.html#ix-indexer-is-deprecated
-
-
 
 ![png](output_23_2.png)
 
@@ -699,11 +687,6 @@ THE PELOPONNESIAN WAR：伯罗奔尼撒战争，雅典和斯巴达之间的战�
 # 层级聚类
 test.hierachical_clustering()
 ```
-
-    /Users/suhang/anaconda3/lib/python3.7/site-packages/matplotlib/figure.py:2366: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
-      warnings.warn("This figure includes Axes that are not compatible "
-
-
 
 ![png](output_26_1.png)
 
