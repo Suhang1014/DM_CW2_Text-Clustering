@@ -27,7 +27,7 @@ from gensim import corpora, models
 stopwords = set(stopwords.words('english'))
 en_words = set(words.words())
 stemmer = SnowballStemmer('english')
-book_id = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+book_id = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24']
 titles = ['THE HISTORY OF THE DECLINE AND FALL OF THE ROMAN EMPIRE. VOL. VI',
           'THE HISTORIES CAIUS COBNELIUS TACITUS',
           'THE WORK OF JOSEPH US, THE JEWISH WAR. VOL. IV',
@@ -59,6 +59,7 @@ def tokenize_and_filter_punc(raw_text):
     tokens = wordpunct_tokenize(raw_text)
     text = nltk.Text(tokens)
     words = [w.lower() for w in text if w.isalpha()]
+    words = [w for w in words if len(w) >= 3]
 
     return words
 
@@ -192,7 +193,7 @@ class TextClassification(object):
     def tf_idf(self):
         tfidf_matrix = None
         print('Training TF-IDF model...')
-        tfidf_vectorizer = TfidfVectorizer(max_df=0.9, max_features=200000, min_df=0.01, stop_words='english',
+        tfidf_vectorizer = TfidfVectorizer(max_df=0.9, max_features=100000, min_df=0.01, stop_words='english',
                                            use_idf=True, tokenizer=tokenize_and_filter_punc, ngram_range=(1, 1))
         books = []
         for book in self.__books:
@@ -246,7 +247,7 @@ class TextClassification(object):
         self.__d2v_vector = feature_vectors
 
     # K-means算法
-    def k_mean_clustering(self, matrix, dist_matrix, plot_title, n_clusters=5):
+    def k_means_clustering(self, matrix, dist_matrix, plot_title, n_clusters=5):
         num_clusters = n_clusters
 
         print('Start K-Means Clustering...')
@@ -263,11 +264,13 @@ class TextClassification(object):
 
         frame = pd.DataFrame(books, columns=['book_id', 'title', 'cluster'])
         print(frame)
+        frame.to_csv('/Users/suhang/Documents/GitHub/COMP6237-Data-Mining/cw2-understanding-data/k-means_result.csv')
 
         # convert two components as we're plotting points in a two-dimensional plane
         # "precomputed" because we provide a distance matrix
         # we will also specify `random_state` so the plot is reproducible.
         mds = MDS(n_components=2, dissimilarity="precomputed", random_state=1)
+        #         pca = PCA(n_components=2, svd_solver='auto')
 
         pos = mds.fit_transform(dist_matrix)  # shape (n_components, n_samples)
         xs, ys = pos[:, 0], pos[:, 1]
@@ -326,7 +329,7 @@ class TextClassification(object):
         linkage_matrix = ward(dist_matrix)  # define the linkage_matrix using ward clustering pre-computed distances
 
         fig, ax = plt.subplots(figsize=(15, 9))  # set size
-        ax = dendrogram(linkage_matrix, orientation="right", labels=book_id)
+        ax = dendrogram(linkage_matrix, orientation="right", labels=titles)
 
         plt.tick_params( \
             axis='y',  # changes apply to the x-axis
@@ -334,7 +337,7 @@ class TextClassification(object):
             bottom=False,  # ticks along the bottom edge are off
             top=False,  # ticks along the top edge are off
             labelbottom=False,
-            labelsize=20)
+            labelsize=10)
         plt.title(plot_title, fontsize=24)
 
         fig.set_tight_layout(True)
@@ -353,6 +356,7 @@ class TextClassification(object):
 
         frame = pd.DataFrame(books, columns=['book_id', 'title', 'labels'])
         print(frame)
+        frame.to_csv('/Users/suhang/Documents/GitHub/COMP6237-Data-Mining/cw2-understanding-data/mean-shift_result.csv')
 
         mds = MDS(n_components=2, dissimilarity="precomputed", random_state=1)
         pos = mds.fit_transform(dist_matrix)
@@ -412,14 +416,14 @@ class TextClassification(object):
         # 将词典转换为一个Bag of Words
         corpus = [dictionary.doc2bow(book_words) for book_words in books_words]
 
-        lda = models.LdaModel(corpus, num_topics=3,
+        lda = models.LdaModel(corpus, num_topics=5,
                               id2word=dictionary,
                               update_every=5,
                               chunksize=10000,
                               passes=100)
 
         print('LDA Done...')
-        topics = lda.print_topics(num_topics=3, num_words=20)
+        topics = lda.print_topics(num_topics=5, num_words=30)
         # print(topics_matrix)
         #         topics_matrix = np.array(topics_matrix, dtype=object)
         return topics
@@ -451,25 +455,26 @@ if __name__ == '__main__':
     # test.print_word_count_after_tokenization()
 
     # 用TF-IDF获得向量进行聚类
-    print("TF-IDF:\n")
-    test.tf_idf()
-    tf_idf_matrix = test.tf_idf_matrix
-    tf_idf_distm = test.dist_matrix(tf_idf_matrix)
-    test.k_mean_clustering(tf_idf_matrix, tf_idf_distm, 'K-Means Clustering for TF-IDF')
-    test.hierachical_clustering(tf_idf_distm, 'Hierachical Clustering for TF-IDF')
-    # test.mean_shift(tf_idf_matrix)
-    print('\n')
+    # print("TF-IDF:\n")
+    # test.tf_idf()
+    # tf_idf_matrix = test.tf_idf_matrix
+    # print(tf_idf_matrix.shape)
+    # tf_idf_distm = test.dist_matrix(tf_idf_matrix)
+    # test.k_means_clustering(tf_idf_matrix, tf_idf_distm, 'K-Means Clustering for TF-IDF')
+    # test.hierachical_clustering(tf_idf_distm, 'Hierachical Clustering for TF-IDF')
+    # # test.mean_shift(tf_idf_matrix)
+    # print('\n')
 
     # 用Doc2vec获得向量进行聚类
-    print("Doc2Vec:\n")
-    test.doc2vec()
-    test.doc2vec_to_vectors()
-    d2v_vector = test.d2v_vector
-    d2v_distm = test.dist_matrix(d2v_vector)
-    test.k_mean_clustering(d2v_vector, d2v_distm, 'K-Means Clustering for Doc2vec')
-    test.hierachical_clustering(d2v_distm, 'K-Means Clustering for Doc2vec')
-    test.mean_shift(d2v_vector, d2v_distm, 'Mean Shift Clustering for Doc2vec')
-    print('\n')
+    # print("Doc2Vec:\n")
+    # test.doc2vec()
+    # test.doc2vec_to_vectors()
+    # d2v_vector = test.d2v_vector
+    # d2v_distm = test.dist_matrix(d2v_vector)
+    # test.k_means_clustering(d2v_vector, d2v_distm, 'K-Means Clustering for Doc2vec')
+    # test.hierachical_clustering(d2v_distm, 'K-Means Clustering for Doc2vec')
+    # test.mean_shift(d2v_vector, d2v_distm, 'Mean Shift Clustering for Doc2vec')
+    # print('\n')
 
     # LDA
     print('LDA topics:\n')
